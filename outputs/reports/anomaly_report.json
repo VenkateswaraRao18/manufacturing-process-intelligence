@@ -1,0 +1,149 @@
+{
+  "total_vehicles": 2869,
+  "flagged_p95": 144,
+  "flagged_pct": 5.02,
+  "mean_deviation_tasks": 33.33,
+  "p95_combined_score": 0.5087,
+  "top_20_anomalous_vehicles": [
+    {
+      "vehicle_id": 94334018,
+      "combined_score": 0.8804,
+      "deviation_tasks": 118,
+      "unexpected_tasks": 34,
+      "missed_tasks": 84
+    },
+    {
+      "vehicle_id": 94371440,
+      "combined_score": 0.8387,
+      "deviation_tasks": 118,
+      "unexpected_tasks": 85,
+      "missed_tasks": 33
+    },
+    {
+      "vehicle_id": 94341518,
+      "combined_score": 0.7868,
+      "deviation_tasks": 99,
+      "unexpected_tasks": 51,
+      "missed_tasks": 48
+    },
+    {
+      "vehicle_id": 94348554,
+      "combined_score": 0.7799,
+      "deviation_tasks": 103,
+      "unexpected_tasks": 64,
+      "missed_tasks": 39
+    },
+    {
+      "vehicle_id": 94359155,
+      "combined_score": 0.7583,
+      "deviation_tasks": 92,
+      "unexpected_tasks": 49,
+      "missed_tasks": 43
+    },
+    {
+      "vehicle_id": 94360963,
+      "combined_score": 0.7456,
+      "deviation_tasks": 113,
+      "unexpected_tasks": 96,
+      "missed_tasks": 17
+    },
+    {
+      "vehicle_id": 94287679,
+      "combined_score": 0.7441,
+      "deviation_tasks": 102,
+      "unexpected_tasks": 80,
+      "missed_tasks": 22
+    },
+    {
+      "vehicle_id": 94342789,
+      "combined_score": 0.7353,
+      "deviation_tasks": 98,
+      "unexpected_tasks": 75,
+      "missed_tasks": 23
+    },
+    {
+      "vehicle_id": 94339165,
+      "combined_score": 0.7123,
+      "deviation_tasks": 89,
+      "unexpected_tasks": 14,
+      "missed_tasks": 75
+    },
+    {
+      "vehicle_id": 94353315,
+      "combined_score": 0.7058,
+      "deviation_tasks": 82,
+      "unexpected_tasks": 23,
+      "missed_tasks": 59
+    },
+    {
+      "vehicle_id": 94359924,
+      "combined_score": 0.6948,
+      "deviation_tasks": 80,
+      "unexpected_tasks": 21,
+      "missed_tasks": 59
+    },
+    {
+      "vehicle_id": 94370475,
+      "combined_score": 0.6881,
+      "deviation_tasks": 77,
+      "unexpected_tasks": 24,
+      "missed_tasks": 53
+    },
+    {
+      "vehicle_id": 94357530,
+      "combined_score": 0.6864,
+      "deviation_tasks": 82,
+      "unexpected_tasks": 0,
+      "missed_tasks": 82
+    },
+    {
+      "vehicle_id": 94358264,
+      "combined_score": 0.6838,
+      "deviation_tasks": 78,
+      "unexpected_tasks": 40,
+      "missed_tasks": 38
+    },
+    {
+      "vehicle_id": 94370467,
+      "combined_score": 0.6606,
+      "deviation_tasks": 72,
+      "unexpected_tasks": 25,
+      "missed_tasks": 47
+    },
+    {
+      "vehicle_id": 94343233,
+      "combined_score": 0.6606,
+      "deviation_tasks": 72,
+      "unexpected_tasks": 11,
+      "missed_tasks": 61
+    },
+    {
+      "vehicle_id": 94369469,
+      "combined_score": 0.6593,
+      "deviation_tasks": 88,
+      "unexpected_tasks": 40,
+      "missed_tasks": 48
+    },
+    {
+      "vehicle_id": 94360369,
+      "combined_score": 0.6584,
+      "deviation_tasks": 94,
+      "unexpected_tasks": 33,
+      "missed_tasks": 61
+    },
+    {
+      "vehicle_id": 94358702,
+      "combined_score": 0.6536,
+      "deviation_tasks": 96,
+      "unexpected_tasks": 75,
+      "missed_tasks": 21
+    },
+    {
+      "vehicle_id": 94359288,
+      "combined_score": 0.6474,
+      "deviation_tasks": 82,
+      "unexpected_tasks": 35,
+      "missed_tasks": 47
+    }
+  ]
+}

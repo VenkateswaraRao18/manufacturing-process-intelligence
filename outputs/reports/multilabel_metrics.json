@@ -1,0 +1,20 @@
+{
+  "LogisticRegression": {
+    "hamming_loss": 0.0957,
+    "f1_micro": 0.2002,
+    "f1_macro": 0.0513,
+    "precision_micro": 0.628,
+    "recall_micro": 0.1191,
+    "lrap": 0.3163,
+    "subset_accuracy": 0.0
+  },
+  "XGBoost": {
+    "hamming_loss": 0.0924,
+    "f1_micro": 0.2029,
+    "f1_macro": 0.0494,
+    "precision_micro": 0.769,
+    "recall_micro": 0.1169,
+    "lrap": 0.3189,
+    "subset_accuracy": 0.0
+  }
+}
