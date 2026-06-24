@@ -396,61 +396,123 @@ P95 combined score                 :  0.509
 ## Project Structure
 
 ```
-project4/
-├── data/
-│   └── dec2jan12_mldata.csv          raw data (143,308 rows × 515 cols)
+manufacturing-process-intelligence/
+├── data/                                  ← not committed (151 MB)
+│   └── dec2jan12_mldata.csv
 ├── src/
-│   ├── __init__.py
-│   ├── data_loader.py                load, clean, deduplicate, pivot
-│   ├── eda.py                        6 EDA plot types, key findings
-│   ├── clustering.py                 PCA, elbow/silhouette, KMeans, UMAP
-│   ├── multilabel_model.py           Binary Relevance LR + XGBoost, threshold tuning
-│   └── anomaly_detection.py          Isolation Forest + model-deviation + combined scoring
+│   ├── data_loader.py                     load, clean, deduplicate, pivot to vehicle matrix
+│   ├── eda.py                             EDA plots (task frequency, config density, co-occurrence)
+│   ├── clustering.py                      PCA + KMeans + UMAP
+│   ├── multilabel_model.py                Binary Relevance XGBoost + LR baseline
+│   └── anomaly_detection.py               Isolation Forest + model-deviation scoring
+├── app/
+│   ├── api.py                             FastAPI REST API (prediction + anomaly endpoints)
+│   └── dashboard.py                       Streamlit interactive dashboard (4 pages)
+├── notebooks/
+│   └── analysis.ipynb                     Narrative walkthrough of full pipeline
 ├── outputs/
-│   ├── figures/                      16 PNG plots
-│   ├── models/
-│   │   ├── vehicle_kmeans.pkl
-│   │   └── multilabel_xgb.pkl
+│   ├── figures/                           16 PNG analysis plots
+│   ├── models/                            ← not committed (pkl files > 50 MB)
 │   └── reports/
 │       ├── multilabel_metrics.json
 │       └── anomaly_report.json
-├── main.py                           end-to-end runner (< 1 min on CPU)
-├── requirements.txt
-└── README.md
+├── main.py                                end-to-end training runner (< 1 min CPU)
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt
 ```
 
 ---
 
 ## How to Run
 
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
+### 1. Local — Training Pipeline
 
-# 2. Run the full pipeline
+```bash
+pip install -r requirements.txt
 python main.py
 ```
 
-The pipeline runs end-to-end in under 1 minute on a standard laptop CPU. All outputs are written to `outputs/`.
+Runs the full pipeline in under 1 minute. Saves 16 plots, 2 models, 2 JSON reports.
 
-To run individual stages:
+---
 
-```python
-from src.data_loader import DataLoader
-from src.clustering import VehicleClusterer
-from src.multilabel_model import MultiLabelModel
-from src.anomaly_detection import AnomalyDetector
+### 2. Local — FastAPI (Prediction Server)
 
-dl = DataLoader().load().clean().pivot(min_task_support=0.05)
+```bash
+pip install fastapi uvicorn
+uvicorn app.api:app --host 0.0.0.0 --port 8000 --reload
+```
 
-# Clustering only
-vc = VehicleClusterer(dl)
-vc.run_pca().fit().run_umap().plot_cluster_task_profiles()
+Open `http://localhost:8000/docs` for the auto-generated Swagger UI.
 
-# Predict tasks for a single vehicle config
-ml = MultiLabelModel(dl)
-ml.split().train_xgboost()
-tasks, probs = ml.predict_vehicle(dl.vehicle_config[0])
+**Available endpoints:**
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/health` | Liveness check |
+| `GET` | `/kpis` | Dataset stats + model performance metrics |
+| `GET` | `/clusters/summary` | Cluster sizes and top tasks per variant family |
+| `GET` | `/anomalies` | Ranked anomaly leaderboard |
+| `POST` | `/predict/config` | Predict tasks from a raw 512-element config vector |
+| `POST` | `/predict/vehicle` | Predict tasks + anomaly status by vehicle serial number |
+
+**Example — predict tasks for a vehicle by ID:**
+
+```bash
+curl -X POST http://localhost:8000/predict/vehicle \
+  -H "Content-Type: application/json" \
+  -d '{"vehicle_id": 94334018, "threshold": 0.20}'
+```
+
+```json
+{
+  "vehicle_id": 94334018,
+  "predicted_tasks": ["FCPPA_0053", "FTR3_0137", ...],
+  "n_predicted": 41,
+  "cluster_id": 2,
+  "anomaly_deviation": 118
+}
+```
+
+---
+
+### 3. Local — Streamlit Dashboard
+
+```bash
+pip install streamlit
+streamlit run app/dashboard.py
+```
+
+Open `http://localhost:8501`. Four pages:
+
+| Page | Description |
+|---|---|
+| **KPI Overview** | Dataset stats, model metrics, cluster sizes, top anomalies, all analysis plots |
+| **Vehicle Explorer** | Select any vehicle → see config, predicted vs actual tasks, precision/recall |
+| **Cluster Explorer** | Select a cluster → task signature (lift chart) + distinguishing config features |
+| **Anomaly Leaderboard** | Ranked anomaly table with unexpected vs missed task breakdown |
+
+---
+
+### 4. Docker — API + Dashboard Together
+
+```bash
+# Place the data CSV in ./data/ first, then:
+docker-compose up --build
+```
+
+| Service | URL |
+|---|---|
+| FastAPI | `http://localhost:8000` |
+| Swagger docs | `http://localhost:8000/docs` |
+| Streamlit dashboard | `http://localhost:8501` |
+
+To run only one service:
+
+```bash
+docker-compose up api        # API only
+docker-compose up dashboard  # Dashboard only
 ```
 
 ---
@@ -468,6 +530,9 @@ matplotlib      3.8.2
 seaborn         0.13.1
 scipy           1.11.4
 joblib          1.3.2
+fastapi
+uvicorn
+streamlit
 ```
 
 ---
