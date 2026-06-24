@@ -1,6 +1,9 @@
 # Raw data — too large for GitHub (151 MB)
 data/
 
+# Trained models — XGBoost pkl is 85 MB, over GitHub's 50 MB recommendation
+outputs/models/
+
 # Python
 __pycache__/
 *.py[cod]

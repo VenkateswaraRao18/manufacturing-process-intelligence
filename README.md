@@ -472,30 +472,6 @@ joblib          1.3.2
 
 ---
 
-## Resume Bullets
-
-```
-- Engineered a vehicle-level multi-label classification system on a 143K-row
-  automotive assembly dataset (2,869 vehicles × 512 binary config features ×
-  2,050 tasks), achieving 76.9% micro-precision and 28.4% micro-F1 across
-  325 task labels using XGBoost with Binary Relevance and threshold tuning
-
-- Discovered 10 natural vehicle variant families via PCA (94.2% variance in
-  50 components) + KMeans clustering (silhouette = 0.38), visualised with
-  UMAP using Jaccard distance on binary config space
-
-- Built a two-signal anomaly detection framework combining Isolation Forest
-  on vehicle config with model-deviation scoring (predicted vs actual task
-  sets); flagged 144 of 2,869 vehicles (5%) as process non-conformances,
-  with the top anomaly deviating by 118 tasks from its predicted process plan
-
-- Designed a complete ML pipeline (loading → EDA → clustering → multi-label
-  prediction → anomaly detection) that runs end-to-end in under 1 minute on
-  CPU, with 16 production-quality figures and JSON reports auto-generated
-```
-
----
-
 ## Technical Notes
 
 **Why Binary Relevance over Label Powerset?**
