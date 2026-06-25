@@ -1,8 +1,10 @@
 # Raw data — too large for GitHub (151 MB)
-data/
+/data/
 
 # Trained models — XGBoost pkl is 85 MB, over GitHub's 50 MB recommendation
 outputs/models/
+
+# outputs/data/ is intentionally NOT ignored — pre-computed arrays (~6 MB) needed for Streamlit Cloud
 
 # Python
 __pycache__/
